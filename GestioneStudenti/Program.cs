@@ -7,7 +7,7 @@ class GestionStudenti
 {
     public static void Main(string[] args)
     {
-        Log();
+        
     }
 
     public static void Media(string[] studenti, string[] materie, int[,] voti)
