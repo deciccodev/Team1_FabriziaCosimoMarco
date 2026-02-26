@@ -5,6 +5,7 @@ class GestionStudenti
     static string[] studenti = { "Anna", "Luca", "Maya", "Rami", "Zoe" };
     static string[] materie = { "Matematica", "Italiano", "Inglese", "Storia" };
     static int[,] voti = new int[5, 4];
+    static List<string>[] noteStudente = new List<string>[studenti.Length];
 
     public static void Main(string[] args)
     {
