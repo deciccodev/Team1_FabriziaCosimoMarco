@@ -21,7 +21,7 @@ class GestionStudenti
             Console.WriteLine($"3-Statistiche");
             Console.WriteLine($"4-Note & Log");
             Console.WriteLine($"5-Ricerca");
-            //   Console.WriteLine($"6-Borsa di studio");
+            Console.WriteLine($"6-Borsa di studio");
             Console.WriteLine($"0-Esci");
 
             int scelta = int.Parse(Console.ReadLine());
@@ -43,13 +43,13 @@ class GestionStudenti
                     // Ricerca(studente, voto);
                     break;
                 case 6:
-                    // BorsaDiStudio();
+                    BorsaDiStudio();
                     break;
                 case 0:
                     continua = false;
                     break;
                 default:
-                    Console.WriteLine($"Selezione errata. ");
+                    Console.WriteLine($"Selezione errata.");
                     break;
             }
         }
@@ -115,7 +115,7 @@ class GestionStudenti
 
             double media = totale / materie.Length;
 
-            if(media >= soglia && insufficienza == false)
+            if (media >= soglia && insufficienza == false)
             {
                 Console.WriteLine($"{studenti[i]} - {media}");
             }
