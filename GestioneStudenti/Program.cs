@@ -69,4 +69,25 @@ class GestionStudenti
         Console.ReadKey(true);
         Console.Clear();
     }
+
+    public static void MediaStudenti()
+    {
+        // Incompleta (ordinamento)
+        Dictionary<string, int> studentiMedia = [];
+
+        for (int i = 0; i < studenti.Length; i++)
+        {
+            for (int j = 0; j < materie.Length; j++)
+            {
+                if (studentiMedia.ContainsKey(studenti[i])) studentiMedia[studenti[i]] += voti[i,j];
+                else studentiMedia[studenti[i]] = voti[i,j];
+            }
+        }
+
+        Console.WriteLine(new string('=', 30));
+        Console.WriteLine("Media studenti");
+        Console.WriteLine(new string('-', 30));
+        foreach (var studenteMedia in studentiMedia) Console.WriteLine($"{studenteMedia.Key} => {studenteMedia.Value / 4}");
+        Console.WriteLine(new string('=', 30));
+    }
 }
