@@ -1,0 +1,15 @@
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\bin\Debug\net10.0\GestioneStudenti.exe
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\bin\Debug\net10.0\GestioneStudenti.deps.json
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\bin\Debug\net10.0\GestioneStudenti.runtimeconfig.json
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\bin\Debug\net10.0\GestioneStudenti.dll
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\bin\Debug\net10.0\GestioneStudenti.pdb
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.AssemblyInfoInputs.cache
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.AssemblyInfo.cs
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.csproj.CoreCompileInputs.cache
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.sourcelink.json
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.dll
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\refint\GestioneStudenti.dll
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.pdb
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\GestioneStudenti.genruntimeconfig.cache
+C:\Users\Work\Documents\GitHub\Team1_FabriziaCosimoMarco\GestioneStudenti\obj\Debug\net10.0\ref\GestioneStudenti.dll
