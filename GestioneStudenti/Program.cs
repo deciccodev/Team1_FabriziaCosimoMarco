@@ -22,6 +22,7 @@ class GestionStudenti
 
         Console.WriteLine("\nPremere un tasto per continuare...");
         Console.ReadKey(true);
+        Console.Write("\x1b[3J");
         Console.Clear();
     }
 
@@ -32,7 +33,8 @@ class GestionStudenti
             Console.WriteLine("Errore: Inserire un nome valido e un voto tra 1 e 10.");
             Console.WriteLine("\nPremere un tasto per continuare...");
             Console.ReadKey(true);
-            Console.Clear();
+            Console.Write("\x1b[3J");
+        Console.Clear();
             return;
         }
 
@@ -47,7 +49,8 @@ class GestionStudenti
             Console.WriteLine("Non è stato trovato nessuno studente che rispetti i filtri forniti.");
             Console.WriteLine("\nPremere un tasto per continuare...");
             Console.ReadKey(true);
-            Console.Clear();
+            Console.Write("\x1b[3J");
+        Console.Clear();
             return;
         }
 
@@ -65,7 +68,7 @@ class GestionStudenti
             Console.WriteLine($"{"Filtro", -8}: Voto ≥ {sogliaVoto}");
             Console.WriteLine(new string('-', 25));
             foreach (var materiaVoto in materieVoti) { 
-                Console.WriteLine($"{materiaVoto.Key, -11} => {materiaVoto.Value}");
+                Console.WriteLine($"{materiaVoto.Key, -11}: {materiaVoto.Value}");
             }
         } else {
             Console.WriteLine("Nessun voto trovato sopra la soglia indicata.");     
@@ -74,6 +77,7 @@ class GestionStudenti
         Console.WriteLine(new string('=', 25));
         Console.WriteLine("\nPremere un tasto per continuare...");
         Console.ReadKey(true);
+        Console.Write("\x1b[3J");
         Console.Clear();
     }
 
@@ -118,6 +122,7 @@ class GestionStudenti
         Console.WriteLine(new string('=', 25));
         Console.WriteLine("\nPremere un tasto per continuare...");
         Console.ReadKey(true);
-        Console.Clear();
+        Console.Write("\x1b[3J");
+        Console.Clear();  
     }
 }
