@@ -19,6 +19,10 @@ class GestionStudenti
             }
             Console.WriteLine("---------------\n");
         }
+
+        Console.WriteLine("\nPremere un tasto per continuare...");
+        Console.ReadKey(true);
+        Console.Clear();
     }
 
     public static void Ricerca(string studente, int voto)
