@@ -2,24 +2,8 @@
 
 class GestionStudenti
 {
-    static string[] studenti = { "Anna", "Luca", "Maya", "Rami", "Zoe" };
-    static string[] materie = { "Matematica", "Italiano", "Inglese", "Storia" };
-    static int[,] voti = new int[5,4];
-
     public static void Main(string[] args)
     {
-        Random rnd = new();
-
-        for (int i = 0; i < studenti.Length; i++) // Cicla le righe (Studenti)
-        {
-            for (int j = 0; j < materie.Length; j++) // Cicla le colonne (Materie)
-            {
-                // Genera un voto casuale tra 2 e 10
-                voti[i, j] = rnd.Next(2, 11); 
-            }
-        }
-
-        VisualizzaRegistro();
     }
 
     public static void VisualizzaRegistro()
@@ -35,5 +19,45 @@ class GestionStudenti
             }
             Console.WriteLine("---------------\n");
         }
+    }
+
+    public static void Ricerca(string studente, int voto)
+    {
+        if (string.IsNullOrEmpty(studente) || voto is < 1 or > 10)
+        {
+            Console.WriteLine("Errore, rispettare i requisiti richiesti. (Nome e voto da 1 a 10)");
+        }
+
+        studente = studente.Substring(0, 1).ToUpper() + studente.Substring(1).ToLower();
+        int idxStudente = studenti.IndexOf(studente);
+
+        if (idxStudente is -1) 
+        {
+            Console.WriteLine("Non è stato trovato nessuno studente che rispetti i filtri forniti.");
+            Console.WriteLine("\nPremere un tasto per continuare...");
+            Console.ReadKey(true);
+            Console.Clear();
+        }
+
+        Dictionary<string, int> materieVoti = [];
+
+        for (int j = 0; j < voti.GetLength(1); j++)
+        {
+            if (voti[idxStudente, j] >= voto) { materieVoti.Add(materie[j], voti[idxStudente, j]); }
+        }
+
+        if (materieVoti.Count > 0) {
+            Console.WriteLine("===== " + studente + " =====");
+            Console.WriteLine($"Voto maggiore/uguale a: {voto}\n");
+            foreach (var materiaVoto in materieVoti) { 
+                Console.WriteLine($"{materiaVoto.Key} => {materiaVoto.Value}");
+            }
+        } else {
+            Console.WriteLine("Non è stato trovato nessuno studente che rispetti i filtri forniti.");     
+        }
+
+        Console.WriteLine("\nPremere un tasto per continuare...");
+        Console.ReadKey(true);
+        Console.Clear();
     }
 }
