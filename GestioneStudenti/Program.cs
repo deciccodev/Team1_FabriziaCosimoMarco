@@ -7,6 +7,8 @@ class GestionStudenti
     static string[] materie = { "Matematica", "Italiano", "Inglese", "Storia" };
     static int[,] voti = new int[5, 4];
 
+    static List<string> log = new List<string>();
+
     public static void Main(string[] args)
     {
         InizializzazioneVoti();
@@ -21,20 +23,25 @@ class GestionStudenti
             Console.WriteLine($"4-Note & Log");
             Console.WriteLine($"5-Ricerca");
             Console.WriteLine($"6-Borsa di studio");
+            Console.WriteLine($"7-Media Studenti");
             Console.WriteLine($"0-Esci");
 
             int scelta = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             switch (scelta)
             {
                 case 1:
                     VisualizzaRegistro();
+                    AggiungiLog(log, "Visualizzato Registro Voti");
                     break;
                 case 2:
                     GestisciVoto();
+                    AggiungiLog(log, "Aggiornato voto studente");
                     break;
                 case 3:
-                    Media(studenti, materie, voti);
+                    Statistiche(studenti, materie, voti);
+                    AggiungiLog(log, "Visualizzate statistiche studenti / materie");
                     break;
                 case 4:
                     Log();
@@ -42,12 +49,19 @@ class GestionStudenti
                 case 5:
                     Console.WriteLine("Nome studente: ");
                     string studente = Console.ReadLine();
-                    Console.WriteLine("Voto: ");
+                    Console.WriteLine("Soglia voto: ");
                     int voto = int.Parse(Console.ReadLine());
                     Ricerca(studente, voto);
+
+                    AggiungiLog(log, "Effettuata ricerca per soglia studente");
                     break;
                 case 6:
                     BorsaDiStudio();
+                    AggiungiLog(log, "Visionata lista studenti meritevoli");
+                    break;
+                case 7:
+                    MediaStudenti();
+                    AggiungiLog(log, "Visualizzata classifica media studenti");
                     break;
                 case 0:
                     continua = false;
@@ -74,19 +88,15 @@ class GestionStudenti
 
     public static void VisualizzaRegistro()
     {
+        
         Console.WriteLine(new string('=', 25));
         for (int i = 0; i < voti.GetLength(0); i++)
         {
             Console.WriteLine($"Scheda: {studenti[i]}\n" + new string('-', 25));
             for (int j = 0; j < voti.GetLength(1); j++)
             {
-<<<<<<< HEAD
-                // Ciclo tutte le colonne di "voti" per stampare la materia attuale (usando j) e i voti
-                Console.WriteLine($"{materie[j],2}: {voti[i, j],2}");
-=======
                 // Formatta e stampa i risultati per ogni singola materia
                 Console.WriteLine($"{materie[j], -11}: {voti[i,j]}");
->>>>>>> Cosimo
             }
             Console.WriteLine(new string('=', 25));
         }
@@ -122,7 +132,7 @@ class GestionStudenti
         Console.WriteLine($"Voto inserito!");
     }
 
-    public static void Media(string[] studenti, string[] materie, int[,] voti)
+    public static void Statistiche(string[] studenti, string[] materie, int[,] voti)
     {
         int numStudenti = studenti.Length;
         int numMaterie = materie.Length;
@@ -187,7 +197,7 @@ class GestionStudenti
     public static void Log()
     {
         List<string> note = new List<string>();
-        List<string> log = new List<string>();
+        //List<string> log = new List<string>();
         bool continua = true;
 
         do
@@ -289,7 +299,7 @@ class GestionStudenti
             Console.WriteLine("\nPremere un tasto per continuare...");
             Console.ReadKey(true);
             Console.Write("\x1b[3J");
-        Console.Clear();
+            Console.Clear();
             return;
         }
 
@@ -307,7 +317,7 @@ class GestionStudenti
             Console.WriteLine("\nPremere un tasto per continuare...");
             Console.ReadKey(true);
             Console.Write("\x1b[3J");
-        Console.Clear();
+            Console.Clear();
             return;
         }
 
@@ -347,8 +357,8 @@ class GestionStudenti
 
         for (int i = 0; i < studenti.Length; i++)
         {
-            bool insufficienza = false;
             double totale = 0;
+            bool insufficienza = false;
 
             for (int j = 0; j < materie.Length; j++)
             {
@@ -366,6 +376,7 @@ class GestionStudenti
                 Console.WriteLine($"{studenti[i]} - {media}");
             }
         }
+        
     }
 
     public static void MediaStudenti()
