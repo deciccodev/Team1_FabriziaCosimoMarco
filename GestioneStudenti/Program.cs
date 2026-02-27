@@ -3,9 +3,11 @@ using System.Globalization;
 
 class GestionStudenti
 {
-    static string[] studenti = { "Anna", "Luca", "Maya", "Rami", "Zoe" };
+    static string[] studenti = { "Anna", "Luca", "Maya", "Sabrina", "Zoe" };
     static string[] materie = { "Matematica", "Italiano", "Inglese", "Storia" };
     static int[,] voti = new int[5, 4];
+
+    static List<string> log = new List<string>();
 
     public static void Main(string[] args)
     {
@@ -21,20 +23,25 @@ class GestionStudenti
             Console.WriteLine($"4-Note & Log");
             Console.WriteLine($"5-Ricerca");
             Console.WriteLine($"6-Borsa di studio");
+            Console.WriteLine($"7-Media Studenti");
             Console.WriteLine($"0-Esci");
 
             int scelta = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             switch (scelta)
             {
                 case 1:
                     VisualizzaRegistro();
+                    AggiungiLog(log, "Visualizzato Registro Voti");
                     break;
                 case 2:
                     GestisciVoto();
+                    AggiungiLog(log, "Aggiornato voto studente");
                     break;
                 case 3:
-                    Media(studenti, materie, voti);
+                    Statistiche(studenti, materie, voti);
+                    AggiungiLog(log, "Visualizzate statistiche studenti / materie");
                     break;
                 case 4:
                     Log();
@@ -42,12 +49,19 @@ class GestionStudenti
                 case 5:
                     Console.WriteLine("Nome studente: ");
                     string studente = Console.ReadLine();
-                    Console.WriteLine("Voto: ");
+                    Console.WriteLine("Soglia voto: ");
                     int voto = int.Parse(Console.ReadLine());
                     Ricerca(studente, voto);
+
+                    AggiungiLog(log, "Effettuata ricerca per soglia studente");
                     break;
                 case 6:
                     BorsaDiStudio();
+                    AggiungiLog(log, "Visionata lista studenti meritevoli");
+                    break;
+                case 7:
+                    MediaStudenti();
+                    AggiungiLog(log, "Visualizzata classifica media studenti");
                     break;
                 case 0:
                     continua = false;
@@ -74,21 +88,22 @@ class GestionStudenti
 
     public static void VisualizzaRegistro()
     {
-        Console.WriteLine(new string('=', 30));
+        
+        Console.WriteLine(new string('=', 25));
         for (int i = 0; i < voti.GetLength(0); i++)
         {
-            Console.WriteLine($"Scheda Ricerca: {studenti[i]}");
-            Console.WriteLine(new string('-', 30));
+            Console.WriteLine($"Scheda: {studenti[i]}\n" + new string('-', 25));
             for (int j = 0; j < voti.GetLength(1); j++)
             {
-                // Ciclo tutte le colonne di "voti" per stampare la materia attuale (usando j) e i voti
-                Console.WriteLine($"{materie[j],2}: {voti[i, j],2}");
+                // Formatta e stampa i risultati per ogni singola materia
+                Console.WriteLine($"{materie[j], -11}: {voti[i,j]}");
             }
-            Console.WriteLine(new string('=', 30));
+            Console.WriteLine(new string('=', 25));
         }
 
         Console.WriteLine("\nPremere un tasto per continuare...");
         Console.ReadKey(true);
+        Console.Write("\x1b[3J");
         Console.Clear();
     }
 
@@ -117,7 +132,7 @@ class GestionStudenti
         Console.WriteLine($"Voto inserito!");
     }
 
-    public static void Media(string[] studenti, string[] materie, int[,] voti)
+    public static void Statistiche(string[] studenti, string[] materie, int[,] voti)
     {
         int numStudenti = studenti.Length;
         int numMaterie = materie.Length;
@@ -182,7 +197,7 @@ class GestionStudenti
     public static void Log()
     {
         List<string> note = new List<string>();
-        List<string> log = new List<string>();
+        //List<string> log = new List<string>();
         bool continua = true;
 
         do
@@ -281,17 +296,29 @@ class GestionStudenti
         if (string.IsNullOrEmpty(studente) || sogliaVoto is < 1 or > 10)
         {
             Console.WriteLine("Errore: Inserire un nome valido e un voto tra 1 e 10.");
+            Console.WriteLine("\nPremere un tasto per continuare...");
+            Console.ReadKey(true);
+            Console.Write("\x1b[3J");
+            Console.Clear();
+            return;
         }
 
+        // Formatto il nome dello studente (Prima lettera in maiuscolo, il resto in minuscolo)
         studente = char.ToUpper(studente[0]) + studente.Substring(1).ToLower();
+        // Ricavo l'indice posizionale dello studente (se non presente, ritorna -1)
         int idxStudente = Array.IndexOf(studenti, studente);
 
-        if (idxStudente is -1)
+
+        // Se non presente...
+        if (idxStudente is -1) 
+
         {
             Console.WriteLine("Non è stato trovato nessuno studente che rispetti i filtri forniti.");
             Console.WriteLine("\nPremere un tasto per continuare...");
             Console.ReadKey(true);
+            Console.Write("\x1b[3J");
             Console.Clear();
+            return;
         }
 
         Dictionary<string, int> materieVoti = [];
@@ -301,26 +328,24 @@ class GestionStudenti
             if (voti[idxStudente, j] >= sogliaVoto) { materieVoti.Add(materie[j], voti[idxStudente, j]); }
         }
 
-        if (materieVoti.Count > 0)
-        {
-            Console.WriteLine(new string('=', 30));
-            Console.WriteLine($"Scheda Ricerca: {studente}");
-            Console.WriteLine(new string('-', 30));
-            Console.WriteLine($"Filtro: Voto ≥ {sogliaVoto}");
-            Console.WriteLine(new string('-', 30));
-            foreach (var materiaVoto in materieVoti)
-            {
-                Console.WriteLine($"{materiaVoto.Key} => {materiaVoto.Value}");
+
+        if (materieVoti.Count > 0) {
+            Console.WriteLine(new string('=', 25));
+            Console.WriteLine($"{"Ricerca", -8}: {studente}");
+            Console.WriteLine(new string('-', 25));
+            Console.WriteLine($"{"Filtro", -8}: Voto ≥ {sogliaVoto}");
+            Console.WriteLine(new string('-', 25));
+            foreach (var materiaVoto in materieVoti) { 
+                Console.WriteLine($"{materiaVoto.Key, -11}: {materiaVoto.Value}");
             }
-        }
-        else
-        {
-            Console.WriteLine("Non è stato trovato nessuno studente che rispetti i filtri forniti.");
+        } else {
+            Console.WriteLine("Nessun voto trovato sopra la soglia indicata.");     
         }
 
-        Console.WriteLine(new string('=', 30));
+        Console.WriteLine(new string('=', 25));
         Console.WriteLine("\nPremere un tasto per continuare...");
         Console.ReadKey(true);
+        Console.Write("\x1b[3J");
         Console.Clear();
     }
 
@@ -332,8 +357,8 @@ class GestionStudenti
 
         for (int i = 0; i < studenti.Length; i++)
         {
-            bool insufficienza = false;
             double totale = 0;
+            bool insufficienza = false;
 
             for (int j = 0; j < materie.Length; j++)
             {
@@ -351,7 +376,52 @@ class GestionStudenti
                 Console.WriteLine($"{studenti[i]} - {media}");
             }
         }
+        
+    }
+
+    public static void MediaStudenti()
+    {
+        Dictionary<string, int> studentiMedia = [];
+
+        // Calcolo della somma dei voti per ogni studente utilizzando un Dictionary (studente, totale)
+        for (int i = 0; i < studenti.Length; i++)
+        {
+            for (int j = 0; j < materie.Length; j++)
+            {
+                // Verifico se lo studente (chiave) esiste già nel dizionario
+                // Se presente, accumulo il voto corrente al totale esistente
+                if (studentiMedia.ContainsKey(studenti[i])) studentiMedia[studenti[i]] += voti[i,j];
+                // Se lo studente non è presente, inizializzo la voce nel dizionario con il suo primo voto
+                else studentiMedia.Add(studenti[i], voti[i,j]);
+            }
+        }
+
+        // Inizializzo una lista con le voci presenti nel dizionario (necessario per l'ordinamento)
+        List<KeyValuePair<string, int>> mediaOrdinata = studentiMedia.ToList();
+
+        // Ordinamento tramite "Bubble-Sorting"
+        for (int i = 0; i < mediaOrdinata.Count - 1; i++)
+        {
+            for (int j = 0; j < mediaOrdinata.Count - 1 - i; j++)
+            {
+                // Se il valore attuale è minore del successivo, eseguo lo swap.
+                // I valori più bassi "affondano" verso il fondo della lista (Ordinamento DESC).
+                if (mediaOrdinata[j].Value < mediaOrdinata[j+1].Value)
+                {
+                    // Uso la decostruzione delle "tuple" per scambiare i due elementi 
+                    // N.B.: Argomento non ancora trattato
+                    (mediaOrdinata[j], mediaOrdinata[j+1]) = (mediaOrdinata[j+1], mediaOrdinata[j]);
+                }
+            }
+        }
+
+        Console.WriteLine(new string('=', 25) + "\nMedia studenti\n" + new string('-', 25));
+        foreach (var media in mediaOrdinata) Console.WriteLine($"{media.Key, -5}: {(double)media.Value / materie.Length, -5} => {Math.Round((double)media.Value / materie.Length)}");
+        Console.WriteLine(new string('=', 25));
+        Console.WriteLine("\nPremere un tasto per continuare...");
+        Console.ReadKey(true);
+        Console.Write("\x1b[3J");
+        Console.Clear();  
     }
 }
-
 
